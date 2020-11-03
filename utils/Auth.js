@@ -1,6 +1,8 @@
 const User = require("../models/user");
 const bcrypt = require("bcryptjs");
 // const user = require("../models/user");
+const jwt = require("jsonwebtoken");
+// const { APP_SECRET } = require("../config");
 
 // @desc To register any user
 
@@ -44,6 +46,64 @@ const userRegister = async (userDets, role, res) => {
   }
 };
 
+const userLogin = async (userCred, role, res) => {
+  let { username, password } = userCred;
+
+  //Check for User existance
+  const user = await User.findOne({ username: username });
+  console.log(user);
+  if (!user) {
+    return res.status(404).json({
+      message: "You must register First",
+      success: false,
+    });
+  }
+
+  // console.log(user.role, role);
+
+  // Role checking
+  if (user.role !== role) {
+    return res.status(403).json({
+      message: "Access forbidden",
+      success: false,
+    });
+  }
+
+  //password validation
+  let isValid = await bcrypt.compare(password, user.password);
+  if (isValid) {
+    let token = jwt.sign(
+      {
+        user_id: user._id,
+        role: user.role,
+        email: user.email,
+        username: user.username,
+      },
+      process.env.APP_SECRET,
+      { expiresIn: "100 days" }
+    );
+
+    let toReturn = {
+      username: user.username,
+      role: user.role,
+      email: user.email,
+      token: token,
+      expiresIn: 2400,
+    };
+
+    return res.status(200).json({
+      ...toReturn,
+      message: "SuccessFull login",
+      success: true,
+    });
+  } else {
+    return res.status(403).json({
+      message: "Invalid password",
+      success: false,
+    });
+  }
+};
+
 const validateuserName = async (username) => {
   let user = await User.findOne({ username: username });
 
@@ -66,4 +126,5 @@ const validatemail = async (email) => {
 
 module.exports = {
   userRegister,
+  userLogin,
 };

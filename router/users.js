@@ -1,5 +1,5 @@
 const router = require("express").Router();
-const { userRegister } = require("../utils/Auth");
+const { userRegister, userLogin } = require("../utils/Auth");
 
 //================reginstration===========//
 //@endUser registration
@@ -19,13 +19,19 @@ router.post("/register-rootAdmin", async (req, res) => {
 
 //=========login==============//
 //@endUser login
-router.post("/login-endUser", async (req, res) => {});
+router.post("/login-endUser", async (req, res) => {
+  await userLogin(req.body, "endUser", res);
+});
 
 //@admin login
-router.post("/login-admin", async (req, res) => {});
+router.post("/login-admin", async (req, res) => {
+  await userLogin(req.body, "admin", res);
+});
 
 //@root Admin login
-router.post("/login-rootAdmin", async (req, res) => {});
+router.post("/login-rootAdmin", async (req, res) => {
+  await userLogin(req.body, "rootAdmin", res);
+});
 
 //==========protected==================//
 //@endUser protected
