@@ -1,5 +1,11 @@
 const router = require("express").Router();
-const { userRegister, userLogin } = require("../utils/Auth");
+const {
+  userRegister,
+  userLogin,
+  userAuth,
+  serializeUser,
+  checkRole,
+} = require("../utils/Auth");
 
 //================reginstration===========//
 //@endUser registration
@@ -35,14 +41,38 @@ router.post("/login-rootAdmin", async (req, res) => {
 
 //==========protected==================//
 //@endUser protected
-router.post("/protected-endUser", async (req, res) => {});
+router.get(
+  "/protected-endUser",
+  userAuth,
+  checkRole(["endUser"]),
+  async (req, res) => {
+    return res.json("Hello endUser");
+  }
+);
 
 //@admin protected
-router.post("/protected-admin", async (req, res) => {});
+router.get(
+  "/protected-admin",
+  userAuth,
+  checkRole(["admin"]),
+  async (req, res) => {
+    return res.json("Hello admin");
+  }
+);
 
 //@root Admin protected
-router.post("/protected-rootAdmin", async (req, res) => {});
+router.get(
+  "/protected-rootAdmin",
+  userAuth,
+  checkRole(["rootAdmin"]),
+  async (req, res) => {
+    return res.json("Hello rootAdmin");
+  }
+);
 
 //===============Common profile route=============//
-router.get("profile", async (req, res) => {});
+router.get("/profile", userAuth, async (req, res) => {
+  console.log(req.user);
+  return res.json(serializeUser(req.user));
+});
 module.exports = router;

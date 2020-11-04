@@ -3,6 +3,7 @@ const dotenv = require("dotenv");
 const connectDB = require("./config/db");
 const bodyParser = require("body-parser");
 const cors = require("cors");
+const passport = require("passport");
 //Load config
 dotenv.config({ path: "./config/config.env" });
 //Connecting to DATABASE
@@ -12,6 +13,9 @@ const app = express();
 //middleWares
 app.use(cors());
 app.use(bodyParser.json());
+app.use(passport.initialize());
+
+require("./middleware/passport")(passport);
 
 //User router middleWare
 app.use("/api/users", require("./router/users"));
