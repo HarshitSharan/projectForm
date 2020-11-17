@@ -1,5 +1,4 @@
-# projectForm
-A Web Portal for Simple Survey Forms. 
+# Passport Auth Form
 
 # Install dependencies
 > npm install
