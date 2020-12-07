@@ -17,22 +17,22 @@ router.post("/register", (req, res) => {
   // res.send("hello");
   const { name, email, password, password2 } = req.body;
   let error = [];
-
+  console.log(error);
   //required feilds
   if (!name || !email || !password || !password2) {
     error.push({ msg: "Please fill all the feilds" });
   }
 
   //check Password
-  if (password !== password2) {
+  else if (password !== password2) {
     error.push({ msg: "Passwword didn't matched" });
   }
 
   //check password lenght
-  if (password.length < 6) {
+  else if (password.length < 6) {
     error.push({ msg: "password must be of more than 6 characters" });
   }
-
+  console.log(error)
   if (error.length > 0) {
     res.render("register", {
       error,
