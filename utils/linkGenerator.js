@@ -1,10 +1,6 @@
 const { v4: uuidv4 } = require('uuid');
 const Link = require('../models/Link');
 
-const expiringByDays = (expiryDate) => {
-    return Math.ceil((expiryDate - (Date.now()/1000))/86400);
-};
-
 const futureDateByDays = (days) => {
     return Math.floor((Date.now() + (days * 86400000))/1000);
 };
@@ -14,8 +10,16 @@ const currrentTime = () => {
 }
 
 module.exports = {
-    generateLink: async () => {
-        const link = new Link();
+    async linkGenerator() {
+        const link = new Link(
+            linkId,
+            expiryDate
+        );
         const linkId = uuidv4();
+        link.linkId = linkId;
+        link.expiryDate = futureDateByDays(10);
+        const result = await link.save()
+        console.log(result);
+        return result;
     }
 }

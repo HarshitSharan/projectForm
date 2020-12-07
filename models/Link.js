@@ -3,10 +3,6 @@ const mongoose = require("mongoose");
 const LinkSchema = new mongoose.Schema(
     { 
         linkId: {
-            type: string,
-            required: true,
-        },
-        linkJson: {
             type: String,
             required: true,
         },
