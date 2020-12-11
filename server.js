@@ -5,6 +5,7 @@ const connectDB = require("./config/db");
 const flash = require("connect-flash");
 const session = require("express-session");
 const passport = require("passport");
+const path = require("path");
 
 //App setup
 const app = express();
@@ -46,6 +47,8 @@ app.use((req, res, next) => {
   res.locals.error = req.flash("error");
   next();
 });
+
+app.use(express.static(path.join(__dirname, "public")));
 
 //Routes
 app.use("/", require("./routes/index"));
