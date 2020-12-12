@@ -1,6 +1,6 @@
 <h1>
-    <i class="fas fa-sign-in-alt"></i>
-    Please Login
+  <i class="fas fa-user-plus"></i>
+    Please Register
   </h1>
   <%- include ("./partials/messages") %>
   <form action="/users/register" method="POST">
@@ -20,7 +20,8 @@
       id="email"
       name="email"
       value="<%= typeof email != 'undefined' ? email : '' %>"
-      required>
+      required
+      >
       <label>Email</label>
     </div>
     <div class="form-control">
@@ -29,7 +30,8 @@
       id="password"
       name="password"
       value="<%= typeof password != 'undefined' ? password : '' %>"
-      required>
+      required
+      >
       <label>Password</label>
     </div>
     <div class="form-control">
@@ -38,8 +40,9 @@
       id="password2"
       name="password2"
       value="<%= typeof password2 != 'undefined' ? password2 : '' %>"
-      required>
-      <label>Password2</label>
+      required
+      >
+      <label>Password 2</label>
     </div>
   
     <button class="btn" type="submit">Register</button>

@@ -19,7 +19,6 @@ router.post("/register", (req, res) => {
   // res.send("hello");
   const { name, email, password, password2 } = req.body;
   let error = [];
-  console.log(error);
   //required feilds
   if (!name || !email || !password || !password2) {
     error.push({ msg: "Please fill all the feilds" });
@@ -34,7 +33,7 @@ router.post("/register", (req, res) => {
   else if (password.length < 6) {
     error.push({ msg: "password must be of more than 6 characters" });
   }
-  console.log(error)
+  // console.log(error)
   if (error.length > 0) {
     res.render("register", {
       error,
@@ -77,7 +76,6 @@ router.post("/register", (req, res) => {
           });
         });
         console.log(newUser, "USer Saved");
-        // res.send("User Saved");
       }
     });
   }
