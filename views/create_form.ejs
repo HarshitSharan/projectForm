@@ -9,6 +9,7 @@
     <!-- Bootstrap CSS -->
     <link rel="stylesheet" href="styles.css">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous"> 
+    <link rel="shortcut icon" href="">
   </head>
   <body>
   <form action="StoreQuestion" method="POST">
@@ -18,7 +19,7 @@
 
       <div class="box" >
         <h3>(<%=i%>) </h3>
-        <input type="text" value="<%=question_text[i-1]%>"name="ques<%= i-1 %>" placeholder="Type your question">
+        <input type="text" oninput="save()" value="<%=question_text[i-1]%>"name="ques<%= i-1 %>" placeholder="Type your question">
         <select id="option_type" value="<%=option_type[i-1]%>"name="type<%= i-1%>">
           <option value="checkbox" selected >Check Box</option>
           <option value="Text" >Short Answer</option>
@@ -28,16 +29,17 @@
         <div class="Option"> 
           <% for(var j=0;j<option[i-1];j++){ %>
           
-            <input id="type" type="text"> <span><input value="<%=option_text[i-1][j]%>" type="text" name="ques<%=i-1%>opt<%=j%>" id ="option_text"  placeholder="Type the Option"></span><br>
+            <input id="type" type="text"> <span><input oninput="save()" value="<%=option_text[i-1][j]%>" type="text" name="ques<%=i-1%>opt<%=j%>" id ="option_text"  placeholder="Type the Option"></span><br>
           <% } %>
         </div>
-          <a href="addoption?QuestionNumber=<%= i-1 %>" >Add Option</a><br>
-          <a href="RemoveOption?QuestionNumber=<%= i-1%>" >Remove Option</a><br>
-        <a href='/RemoveQuestion?QuetionNumber=<%= i-1%>' >Remove Question</a>
+        <!--  -->
+          <a href="addoption?QuestionNumber=<%= i-1 %>" onclick="addOpt(<%=i-1%>,<%=j%>)" >Add Option</a><br>
+          <a href="RemoveOption?QuestionNumber=<%= i-1%>" onclick="removeOpt(<%=i-1%>,<%=j%>)" >Remove Option</a><br>
+        <a href='/RemoveQuestion?QuetionNumber=<%= i-1%>' onclick="removeQues(<%=i-1%>)" >Remove Question</a>
       </div>
       <% } %>
 
-    <a href="/AddQuestion" onclick="clicksubmit()">Add Question</a>
+    <a href="/AddQuestion" onclick="addQues()">Add Question</a>
     <button type="submit" id="submit">Submit</button>
     </form>
 
