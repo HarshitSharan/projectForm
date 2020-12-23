@@ -1,12 +1,13 @@
 const express = require("express");
 const router = express.Router();
-const generateLink = require('../utils/linkGenerator');
+const { linkGenerator } = require("../utils/linkGenerator");
 const { ensureAuthenticate } = require("../utils/auth");
+const { v4: uuidv4 } = require("uuid");
 
-
-router.get('/', ensureAuthenticate,(req, res) => {
-    console.log(req);
-})
-
+router.get("/", ensureAuthenticate, (req, res) => {
+  const result = uuidv4();
+  console.log(result);
+  res.send(result);
+});
 
 module.exports = router;

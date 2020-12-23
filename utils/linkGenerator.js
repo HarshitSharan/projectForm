@@ -11,13 +11,14 @@ const currrentTime = () => {
 
 module.exports = {
     async linkGenerator() {
+        const linkId = uuidv4().toString();
+        const expiryDate = futureDateByDays(10);
         const link = new Link(
             linkId,
             expiryDate
         );
-        const linkId = uuidv4();
         link.linkId = linkId;
-        link.expiryDate = futureDateByDays(10);
+        link.expiryDate = expiryDate;
         const result = await link.save()
         console.log(result);
         return result;

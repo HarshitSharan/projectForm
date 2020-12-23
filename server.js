@@ -6,6 +6,7 @@ const flash = require("connect-flash");
 const session = require("express-session");
 const passport = require("passport");
 const path = require("path");
+const morgan = require("morgan");
 
 //App setup
 const app = express();
@@ -30,10 +31,13 @@ app.use(express.urlencoded({ extended: false }));
 app.use(
   session({
     secret: "secret",
-    resave: true,
-    saveUninitialized: true,
+    resave: false,
+    saveUninitialized: false,
   })
 );
+
+//morgan connection
+app.use(morgan("dev"));
 
 //Passport middleware
 app.use(passport.initialize());
@@ -53,7 +57,7 @@ app.use(express.static(path.join(__dirname, "public")));
 //Routes
 app.use("/", require("./routes/index"));
 app.use("/users", require("./routes/users"));
-app.use("/get-link", require("./routes/getlink"));
+app.use("/getlink", require("./routes/getLink"));
 
 //POrt setup
 const PORT = process.env.PORT || 5500;
