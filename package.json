@@ -1,0 +1,18 @@
+{
+  "name": "admin_form",
+  "version": "1.0.0",
+  "description": "Recive Questions from admin ",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "ar",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^3.1.5",
+    "express": "^4.17.1",
+    "express-ejs-layouts": "^2.5.0",
+    "node-localstorage": "^2.1.6",
+    "nodemon": "^2.0.6"
+  }
+}
