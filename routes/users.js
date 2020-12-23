@@ -3,10 +3,8 @@ const router = express.Router();
 const User = require("../models/User");
 const bcrypt = require("bcryptjs");
 const passport = require("passport");
-const generateLink = require('../utils/linkGenerator')
 
 router.get("/login", (req, res) => {
-  generateLink;
   res.render("login");
 });
 
