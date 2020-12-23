@@ -273,7 +273,7 @@ a {
 	justify-content: center;
 	text-align: center;
   margin: auto;
-  max-width: 50%;
+  max-width: 70%;
   margin-top: 15px;
   border-radius: 5px;
 }
@@ -282,4 +282,10 @@ a {
   border: none;
   cursor: pointer;
   background: transparent;
+}
+
+@media(max-width: 900px) {
+  .dashboard-container {
+    max-width: 80%;
+  }
 }
