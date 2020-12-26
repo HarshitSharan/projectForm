@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const { linkGenerator } = require("../utils/linkGenerator");
-const { ensureAuthenticate } = require("../utils/auth");
+const { ensureAuthenticate } = require("../utils/Auth");
 const { v4: uuidv4 } = require("uuid");
 
 router.get("/", ensureAuthenticate, (req, res) => {
