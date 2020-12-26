@@ -37,7 +37,7 @@ app.use(
 );
 
 //morgan connection
-app.use(morgan("dev"));
+// app.use(morgan("dev"));
 
 //Passport middleware
 app.use(passport.initialize());
