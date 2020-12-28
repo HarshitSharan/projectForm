@@ -13,7 +13,7 @@ let ques=1                              //Store the No. of question
 let opt=[1]                             //Store the count of option for each question   
 let question_text=['']                  //Store the text of each Question 
 let option_text=[['']]                  //Store the array of options for each question 
-let option_type=['']                    //Store the Option Type for each question
+let option_type=['radio']                    //Store the Option Type for each question
 
 
 
@@ -21,16 +21,32 @@ let option_type=['']                    //Store the Option Type for each questio
 app.get('/',(req,res)=>                         
 {
     //console.log(opt,ques)
-    console.log(option_text)
-    res.render('create_form',{question:ques,option:opt,question_text:question_text,option_text:option_text,option_type:option_type});
+    console.log(option_type)
+    res.render('create_form',{question:ques,option:opt,option_type:option_type});
 })
+app.get('/changeOpt',(req,res)=>
+{
+    let qno=req.query.QuestionNumber
+    let type=req.query.type
+    switch(type)
+    {
+        case 'c': option_type[qno]='checkbox';
+                  break;
+        case 'sa': option_type[qno]='text';
+                    break;
 
+        case 'r': option_type[qno]='radio';
+                  break;
+
+    }
+    res.redirect("/")
+})
 //Add Question
 app.get('/AddQuestion',(req,res)=>{
     ques++;
     opt.push(1);
     question_text.push('')
-    option_type.push('')
+    option_type.push('radio')
     option_text.push([''])
 
     console.log("add question",opt)
@@ -55,6 +71,7 @@ app.get('/RemoveQuestion',(req,res)=>
         ques--;
         console.log("Splice",temp,opt)
         opt.splice(temp,1)
+        option_type.splice(temp,1)
         console.log("after Splice",opt)
         res.redirect("/")
 })

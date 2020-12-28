@@ -1,103 +1,97 @@
-function typeChange() {
-
-    var inputBox = document.getElementById('type');
-    if (this.value==='checkbox')
-    {
-        inputBox.type='checkbox'
-        console.log("checkbox")
-    }
-    else if(this.value==='radio')
-    {
-        inputBox.type='radio'
-        console.log("radio")
-    }
-    else
-    {
-        inputBox.type='text'
-        console.log("text")
-    }
-  }
   function save()
   {
     let quest=parseInt(localStorage.getItem("quest"))
 
-
+    
     for(let i=0;i<quest;i++)
     {
-        localStorage.setItem("quesT"+i,document.getElementsByName('type'+i)[0].value)
-        localStorage.setItem('ques'+i,document.getElementsByName('ques'+i)[0].value)
-        let opt=parseInt(localStorage.getItem("q"+i+"o"))
-
+        let temp = localStorage.getItem("q"+i)
+        let obj = JSON.parse(temp)
+        obj.title=document.getElementsByName('ques'+i)[0].value
+        let opt=obj.ono
         for(let j=0;j<opt;j++)
         {
-            localStorage.setItem("q"+i+"o"+j,document.getElementsByName("ques"+i+"opt"+j)[0].value)
+            obj.option[j]=document.getElementsByName("ques"+i+"opt"+j)[0].value
         }
+        localStorage.setItem("q"+i,JSON.stringify(obj))
     }
   }
   function addOpt(qno,ono)
   {
-    let opt=parseInt(localStorage.getItem("q"+qno+"o"))
-    opt++
-    localStorage.setItem('q'+qno+'o',opt)
+    let temp=localStorage.getItem("q"+qno)
+    let obj=JSON.parse(temp)
+    obj.ono++
+    obj.option.push("")
+    localStorage.setItem('q'+qno,JSON.stringify(obj))
     save()
-
   }
   function removeOpt(qno,ono)
   {
-      let opt=parseInt(localStorage.getItem("q"+qno+"o"))
-      opt--;
-      //localStorage.setItem("kuch",'q'+qno+'o'+opt)
-      localStorage.removeItem('q'+qno+'o'+opt);
-      localStorage.setItem('q'+qno+'o',opt);
-      save()
+    let temp=localStorage.getItem("q"+qno)
+    let obj=JSON.parse(temp)
+    obj.ono--
+    obj.option.pop()
+    localStorage.setItem('q'+qno,JSON.stringify(obj));
+    save()
   }
 function removeQues(qno)
 {
     let quest=parseInt(localStorage.getItem("quest"))
-
-    localStorage.removeItem("quesT"+qno)
-    let opt=parseInt(localStorage.getItem("q"+qno+"o"))
-    for(let j=0;j<opt;j++)
-        localStorage.removeItem("q"+qno+"o"+j)
+    save()
     for(let i=qno;i<quest;i++)
     {
-            let k =i+1                   
-            localStorage.setItem('ques'+i,document.getElementsByName('ques'+k)[0].value)
-            opt=parseInt(localStorage.getItem("q"+k+"o"))
-            for(let j=0;j<opt;j++)
-                localStorage.setItem("q"+i+"o"+j,document.getElementsByName("ques"+k+"opt"+j)[0].value)
-        
-       
+        let k =i-1
+        let temp=localStorage.getItem("q"+i)
+        localStorage.setItem('q'+k,temp)
     }
-    quest--
-    localStorage.setItem("quest",quest)
-    save()
+    if (quest!=0)
+    {
+        quest--;
+        localStorage.removeItem("q"+quest)
+        localStorage.setItem("quest",quest)
+    }
+    /*
+    quest -> Question Count
+    q0  {
+        "title": "ABCD",
+        "type": "text",
+
+    }
+    ques0 = JSON.parse(localStorage.getItem("q0"));
+    ele.value = ques0.title;
+    
+    */   
 }
 function addQues()
 {
     let quest=parseInt(localStorage.getItem("quest"));
+    let temp = {title:'',ono:1,option:['']}
+    localStorage.setItem("q"+quest,JSON.stringify(temp))
     quest++;
-    save();
-    localStorage.setItem("quest",quest);
-    quest--;
-    localStorage.setItem("q"+quest+"o",1);
+    localStorage.setItem("quest",quest)
     save()
-
+}
+function clearLocal()
+{
+    localStorage.clear();
 }
 if (localStorage.getItem("quest") === null)
 {
     localStorage.setItem("quest",1);
-    localStorage.setItem("q0o",1);
+    let q0={title:'', ono:1 ,option:['']}
+    localStorage.setItem('q0',JSON.stringify(q0))
 }
   //typeChange();
 let q=parseInt(localStorage.getItem("quest"));
 for(let i=0;i<q;i++)
 {
-    document.getElementsByName('ques'+i)[0].value=localStorage.getItem("ques"+i);
-    let opt = parseInt(localStorage.getItem("q"+i+"o"))
-    for(let j=0;j<opt;j++)
+    let temp = localStorage.getItem("q"+i)
+    let obj = JSON.parse(temp)
+    console.log(obj)
+    document.getElementsByName('ques'+i)[0].value=obj.title
+    for(let j=0;j<obj.ono;j++)
     {
-        document.getElementsByName("ques"+i+"opt"+j)[0].value=localStorage.getItem("q"+i+"o"+j)
+        document.getElementsByName("ques"+i+"opt"+j)[0].value=obj.option[j]
     }
 }
-  document.getElementById('option_type').addEventListener('change', typeChange);
+  //document.getElementById('option_type').addEventListener('change', typeChange);
