@@ -1,3 +1,23 @@
+  function typeChange(qno,fl)
+  {
+    localStorage.setItem("yha","aaya"+fl)
+    if (fl==0)
+    {
+      if(localStorage.getItem("qT"+qno) != null)
+      {
+        localStorage.removeItem("qT"+qno)
+      }
+    }
+    else
+    {
+      localStorage.setItem("yha aaya","yay")
+      let temp = localStorage.getItem("q"+qno)
+      let obj = JSON.parse(temp)
+      obj.ono=1
+      localStorage.setItem("q"+qno,JSON.stringify(obj))
+      localStorage.setItem('qT'+qno,"Text Area")
+    }
+  }
   function save()
   {
     let quest=parseInt(localStorage.getItem("quest"))
@@ -18,38 +38,53 @@
   }
   function addOpt(qno,ono)
   {
-    let temp=localStorage.getItem("q"+qno)
-    let obj=JSON.parse(temp)
-    obj.ono++
-    obj.option.push("")
-    localStorage.setItem('q'+qno,JSON.stringify(obj))
-    save()
+    if (localStorage.getItem("qT"+qno) === null)
+    {
+      let temp=localStorage.getItem("q"+qno)
+      let obj=JSON.parse(temp)
+      obj.ono++
+      obj.option.push("")
+      localStorage.setItem('q'+qno,JSON.stringify(obj))
+      save()
+    }
   }
   function removeOpt(qno,ono)
   {
-    let temp=localStorage.getItem("q"+qno)
-    let obj=JSON.parse(temp)
-    obj.ono--
-    obj.option.pop()
-    localStorage.setItem('q'+qno,JSON.stringify(obj));
-    save()
+    if(localStorage.getItem("qT"+qno) === null)
+    {
+      let temp=localStorage.getItem("q"+qno)
+      let obj=JSON.parse(temp)
+      obj.ono--
+      obj.option.pop()
+      localStorage.setItem('q'+qno,JSON.stringify(obj));
+      save()
+    }
   }
 function removeQues(qno)
 {
+
     let quest=parseInt(localStorage.getItem("quest"))
     save()
-    for(let i=qno;i<quest;i++)
+    for(let i=qno+1;i<quest;i++)
     {
         let k =i-1
         let temp=localStorage.getItem("q"+i)
         localStorage.setItem('q'+k,temp)
+        if(localStorage.getItem("qT"+qno) != null)
+        {
+         localStorage.setItem("qT"+k,"Text Area")
+         localStorage.removeItem("qT"+i)
+        }
     }
     if (quest!=0)
     {
         quest--;
         localStorage.removeItem("q"+quest)
         localStorage.setItem("quest",quest)
+        localStorage.removeItem("qT"+quest)
     }
+  
+  
     /*
     quest -> Question Count
     q0  {
@@ -92,6 +127,7 @@ for(let i=0;i<q;i++)
     for(let j=0;j<obj.ono;j++)
     {
         document.getElementsByName("ques"+i+"opt"+j)[0].value=obj.option[j]
+        console.log(j+"for"+i)
     }
 }
   //document.getElementById('option_type').addEventListener('change', typeChange);

@@ -21,9 +21,9 @@
         <h3>(<%=i%>) </h3>
         <input type="text" oninput="save()" value=""name="ques<%= i-1 %>" placeholder="Type your question">
         <div class="optionsType">
-          <a href="changeOpt?QuestionNumber=<%=i-1%>&type=c">Check Box</a><br>
-          <a href="ChangeOpt?QuestionNumber=<%=i-1%>&type=sa">Short Answer</a><br>
-          <a href="ChangeOpt?QuestionNumber=<%=i-1%>&type=r">Multiple Choice</a><br>
+          <a href="changeOpt?QuestionNumber=<%=i-1%>&type=c" onclick="typeChange(<%=i-1%>,0)">Check Box</a><br>
+          <a href="ChangeOpt?QuestionNumber=<%=i-1%>&type=sa" onclick="typeChange(<%=i-1%>,1)">Short Answer</a><br>
+          <a href="ChangeOpt?QuestionNumber=<%=i-1%>&type=r" onclick="typeChange(<%=i-1%>),0">Multiple Choice</a><br>
         </div>  
         <div class="Option"> 
           <% for(var j=0;j<option[i-1];j++){ %>
