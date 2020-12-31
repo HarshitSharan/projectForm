@@ -69,6 +69,7 @@ app.get('/RemoveQuestion',(req,res)=>
        //console.log(req.body,parseInt(req.body.AddForQuestion))
        let temp=req.query.QuestionNumber
         ques--;
+        console.log(temp)
         console.log("Splice",temp,opt)
         opt.splice(temp,1)
         option_type.splice(temp,1)
