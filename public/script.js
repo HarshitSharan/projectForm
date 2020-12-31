@@ -17,6 +17,7 @@
       localStorage.setItem("q"+qno,JSON.stringify(obj))
       localStorage.setItem('qT'+qno,"Text Area")
     }
+    localStorage.setItem("scroll",window.scrollY)
   }
   function save()
   {
@@ -38,6 +39,7 @@
   }
   function addOpt(qno,ono)
   {
+    save()
     if (localStorage.getItem("qT"+qno) === null)
     {
       let temp=localStorage.getItem("q"+qno)
@@ -45,11 +47,12 @@
       obj.ono++
       obj.option.push("")
       localStorage.setItem('q'+qno,JSON.stringify(obj))
-      save()
     }
+    localStorage.setItem("scroll",window.scrollY)
   }
   function removeOpt(qno,ono)
   {
+    save()
     if(localStorage.getItem("qT"+qno) === null)
     {
       let temp=localStorage.getItem("q"+qno)
@@ -57,14 +60,15 @@
       obj.ono--
       obj.option.pop()
       localStorage.setItem('q'+qno,JSON.stringify(obj));
-      save()
     }
+    localStorage.setItem("scroll",window.scrollY)
   }
 function removeQues(qno)
 {
 
     let quest=parseInt(localStorage.getItem("quest"))
     save()
+    localStorage.setItem("scroll",window.scrollY)
     for(let i=qno+1;i<quest;i++)
     {
         let k =i-1
@@ -95,16 +99,18 @@ function removeQues(qno)
     ques0 = JSON.parse(localStorage.getItem("q0"));
     ele.value = ques0.title;
     
-    */   
+    */  
+   
 }
 function addQues()
 {
+    save()
     let quest=parseInt(localStorage.getItem("quest"));
     let temp = {title:'',ono:1,option:['']}
     localStorage.setItem("q"+quest,JSON.stringify(temp))
     quest++;
     localStorage.setItem("quest",quest)
-    save()
+    localStorage.setItem("scroll",window.scrollY)
 }
 function clearLocal()
 {
@@ -115,6 +121,11 @@ if (localStorage.getItem("quest") === null)
     localStorage.setItem("quest",1);
     let q0={title:'', ono:1 ,option:['']}
     localStorage.setItem('q0',JSON.stringify(q0))
+}
+if (localStorage.getItem('scroll')!=null)
+{
+
+  window.scrollTo(0, localStorage.getItem('scroll'));
 }
   //typeChange();
 let q=parseInt(localStorage.getItem("quest"));
@@ -130,4 +141,5 @@ for(let i=0;i<q;i++)
         console.log(j+"for"+i)
     }
 }
+
   //document.getElementById('option_type').addEventListener('change', typeChange);
