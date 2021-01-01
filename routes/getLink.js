@@ -6,7 +6,7 @@ const { v4: uuidv4 } = require("uuid");
 
 router.get("/", ensureAuthenticate, (req, res) => {
   const result = uuidv4();
-  console.log(result);
+  // console.log(req.user);
   res.send(result);
 });
 

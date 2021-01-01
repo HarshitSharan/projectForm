@@ -9,15 +9,17 @@ const currrentTime = () => {
   return Math.floor(Date.now() / 1000);
 };
 
+async function linkGenerator() {
+  const expiryDate = futureDateByDays(10);
+  const linkId = uuidv4().toString() + expiryDate.toString();
+  const link = new Link({ linkId, expiryDate });
+  link.linkId = linkId;
+  link.expiryDate = expiryDate;
+  const result = await link.save();
+  // console.log(result);
+  return result;
+}
+
 module.exports = {
-  async linkGenerator() {
-    const linkId = uuidv4().toString();
-    const expiryDate = futureDateByDays(10);
-    const link = new Link(linkId, expiryDate);
-    link.linkId = linkId;
-    link.expiryDate = expiryDate;
-    const result = await link.save();
-    console.log(result);
-    return result;
-  },
+  linkGenerator,
 };

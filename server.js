@@ -19,7 +19,7 @@ dotenv.config({ path: "./config/config.env" });
 
 //Database Connected
 connectDB();
-app.use(morgan('dev'));
+// app.use(morgan("dev"));
 //EJS
 app.use(expressLayouts);
 app.set("view engine", "ejs");
