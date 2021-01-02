@@ -93,7 +93,7 @@ router.post("/dashboard/StoreQuestion", (req, res) => {
   // console.log(option_text);
   // console.log(option_type);
   // console.log(req.user);
-  linkGenerator();
+  linkGenerator(req);
   res.redirect("/dashboard");
 });
 
