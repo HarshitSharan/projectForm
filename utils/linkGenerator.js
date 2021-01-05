@@ -13,7 +13,7 @@ const currrentTime = () => {
 const linkGenerator = async (req) => {
   // console.log(req.user._id);
   const expiryDate = futureDateByDays(10);
-  const linkId = uuidv4().toString() + expiryDate.toString();
+  const linkId = uuidv4().replace(/-/g, "") + expiryDate.toString();
   const adminId = mongoose.Types.ObjectId(req.user._id);
   const formName = req.body.formName;
   const link = new Link({
