@@ -93,6 +93,8 @@ router.post("/dashboard/StoreQuestion", (req, res) => {
   // console.log(option_text);
   // console.log(option_type);
   // console.log(req.user);
+  // console.log(req.body);
+  // console.log("IN post route: ", req.body);
   linkGenerator(req);
   res.redirect("/dashboard");
 });

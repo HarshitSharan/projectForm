@@ -21,6 +21,7 @@ if (shareLinkBtn) {
         copyTextarea.style.position = "fixed";
         copyTextarea.style.opacity = "0";
         copyTextarea.textContent = `${BASE_URL}` + `public/${res.data}`;
+        console.log(res.data);
         document.body.appendChild(copyTextarea);
         copyTextarea.select();
         document.execCommand("copy");
@@ -116,9 +117,13 @@ function addQues() {
   localStorage.setItem("quest", quest);
   localStorage.setItem("scroll", window.scrollY);
 }
+
+var formName = document.getElementById("form-name");
+
 function clearLocal() {
   localStorage.clear();
 }
+
 if (localStorage.getItem("quest") === null) {
   localStorage.setItem("quest", 1);
   let q0 = { title: "", ono: 1, option: [""] };

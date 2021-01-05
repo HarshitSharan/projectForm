@@ -10,20 +10,25 @@ const currrentTime = () => {
   return Math.floor(Date.now() / 1000);
 };
 
-async function linkGenerator(req) {
+const linkGenerator = async (req) => {
   // console.log(req.user._id);
   const expiryDate = futureDateByDays(10);
   const linkId = uuidv4().toString() + expiryDate.toString();
   const adminId = mongoose.Types.ObjectId(req.user._id);
-  const link = new Link({ adminId, linkId, expiryDate });
+  const formName = req.body.formName;
+  const link = new Link({
+    adminId,
+    linkId,
+    expiryDate,
+  });
   link.linkId = linkId;
   link.expiryDate = expiryDate;
   link.adminId = adminId;
+  link.formName = formName;
+  // console.log("In generate Link Method" + link);
   const result = await link.save();
-  // console.log(result);
-  // console.log(req.user);
   return result;
-}
+};
 
 module.exports = {
   linkGenerator,

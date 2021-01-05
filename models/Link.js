@@ -11,6 +11,10 @@ const LinkSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    formName: {
+      type: String,
+      required: true,
+    },
     expiryDate: {
       type: Date,
       required: true,

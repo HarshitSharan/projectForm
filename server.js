@@ -7,6 +7,8 @@ const session = require("express-session");
 const passport = require("passport");
 const path = require("path");
 const morgan = require("morgan");
+const bodyParser = require("body-parser");
+const cors = require("cors");
 
 //App setup
 const app = express();
@@ -19,25 +21,28 @@ dotenv.config({ path: "./config/config.env" });
 
 //Database Connected
 connectDB();
-// app.use(morgan("dev"));
+
 //EJS
 app.use(expressLayouts);
 app.set("view engine", "ejs");
 
+app.use(cors());
+
 //BodyParser
+app.use(bodyParser.json());
 app.use(express.urlencoded({ extended: false }));
 
 //Express sessions
 app.use(
   session({
     secret: "secret",
-    resave: false,
-    saveUninitialized: false,
+    resave: true,
+    saveUninitialized: true,
   })
 );
 
 //morgan connection
-// app.use(morgan("dev"));
+app.use(morgan("dev"));
 
 //Passport middleware
 app.use(passport.initialize());

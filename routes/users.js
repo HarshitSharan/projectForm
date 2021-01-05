@@ -79,7 +79,7 @@ router.post("/register", (req, res) => {
   }
 });
 
-//Handle LOgin
+//Handle LOgin   
 router.post("/login", (req, res, next) => {
   passport.authenticate("local", {
     successRedirect: "/dashboard",
