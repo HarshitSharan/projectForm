@@ -18,12 +18,9 @@
 
         <form action="dashboard/StoreQuestion" method="POST">
           <% for(var i=1;i<=question;i++){ %>
-      
-      
-      
             <div class="box" id="Q<%=i-1%>" >
               <h3>(<%=i%>) </h3>
-              <input type="text" oninput="save()" value=""name="ques<%= i-1 %>" placeholder="Type your question">
+              <input type="text" oninput="save()" value="" name="ques<%= i-1 %>" placeholder="Type your question">
               <div class="optionsType">
                 <a href="dashboard/changeOpt?QuestionNumber=<%=i-1%>&type=c" onclick="typeChange(`<%=i-1%>`,0)">Check Box</a><br>
                 <a href="dashboard/ChangeOpt?QuestionNumber=<%=i-1%>&type=sa" onclick="typeChange(`<%=i-1%>`,1)">Short Answer</a><br>
@@ -45,10 +42,10 @@
               <a href='dashboard/RemoveQuestion?QuestionNumber=<%= i-1%>' onclick="removeQues(`<%=i-1%>`)" >Remove Question</a>
               <!--  -->
             </div>
-            <% } %>
+          <% } %>
           <a href="dashboard/AddQuestion" onclick="addQues()">Add Question</a>
           <button type="submit" id="submit" onclick="clearLocal()">Submit</button>
           <input type="text" value="Untitled Form" id="form-name" required name="formName">
-          </form>
+        </form>
     </div>
 </div>

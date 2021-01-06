@@ -6,26 +6,58 @@ const futureDateByDays = (days) => {
   return Math.floor((Date.now() + days * 86400000) / 1000);
 };
 
-const currrentTime = () => {
-  return Math.floor(Date.now() / 1000);
+const formQuestion = [];
+
+const dataManipulator = (questionData, optionData, optionTypeData) => {
+  for (var i = 0; i < questionData.length; i++) {
+    var dataObj = {};
+    key1 = "question";
+    if (!(key1 in dataObj) || key1 in dataObj) {
+      dataObj[key1] = {};
+    }
+    key2 = "option";
+    if (!(key2 in dataObj) || key2 in dataObj) {
+      dataObj[key2] = [];
+    }
+    key3 = "optionType";
+    if (!(key3 in dataObj) || key3 in dataObj) {
+      dataObj[key3] = {};
+    }
+    dataObj[key1] = questionData[i];
+    optionData[i].forEach((option) => {
+      dataObj[key2].push(option);
+    });
+    dataObj[key3] = optionTypeData[i];
+    formQuestion.push(dataObj);
+  }
+
+  console.log(formQuestion);
 };
 
-const linkGenerator = async (req) => {
-  // console.log(req.user._id);
+const linkGenerator = async (
+  req,
+  questionBody,
+  optionBody,
+  optionBodyType,
+  name
+) => {
+  dataManipulator(questionBody, optionBody, optionBodyType);
   const expiryDate = futureDateByDays(10);
   const linkId = uuidv4().replace(/-/g, "") + expiryDate.toString();
   const adminId = mongoose.Types.ObjectId(req.user._id);
-  const formName = req.body.formName;
+  const formName = name;
   const link = new Link({
     adminId,
     linkId,
+    formName,
+    formQuestion,
     expiryDate,
   });
   link.linkId = linkId;
   link.expiryDate = expiryDate;
   link.adminId = adminId;
   link.formName = formName;
-  // console.log("In generate Link Method" + link);
+  link.formQuestion = formQuestion;
   const result = await link.save();
   return result;
 };

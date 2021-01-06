@@ -81,22 +81,38 @@ router.post("/dashboard/StoreQuestion", (req, res) => {
       question_text = [];
       option_text = [];
     }
-    eval("question_text.push(req.body.ques" + i + ")");
+    eval(`question_text.push(req.body.ques${i})`);
     let arr = [];
 
     for (let j = 0; j < opt[i]; j++) {
-      eval("arr.push(req.body.ques" + i + "opt" + j + ")");
+      eval(`arr.push(req.body.ques${i}opt${j})`);
     }
     option_text.push(arr);
   }
+
+  const formName = req.body.formName;
+
+  linkGenerator(req, question_text, option_text, option_type, formName);
+
+  clearArray(question_text);
+  clearArray(option_text);
+  clearArray(option_type);
+  ques = 1;
+  opt = [1];
   // console.log(question_text);
   // console.log(option_text);
   // console.log(option_type);
   // console.log(req.user);
   // console.log(req.body);
   // console.log("IN post route: ", req.body);
-  linkGenerator(req);
+
   res.redirect("/dashboard");
 });
+
+function clearArray(array) {
+  while (array.length > 1) {
+    array.pop();
+  }
+}
 
 module.exports = router;

@@ -15,6 +15,22 @@ const LinkSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    formQuestion: [
+      {
+        question: {
+          type: String,
+          required: true,
+        },
+        option: {
+          type: Array,
+          required: true,
+        },
+        optionType: {
+          type: String,
+          required: true,
+        },
+      },
+    ],
     expiryDate: {
       type: Date,
       required: true,

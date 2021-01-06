@@ -29,8 +29,11 @@ app.set("view engine", "ejs");
 app.use(cors());
 
 //BodyParser
+
+// app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(bodyParser.raw());
 
 //Express sessions
 app.use(
@@ -42,7 +45,7 @@ app.use(
 );
 
 //morgan connection
-app.use(morgan("dev"));
+// app.use(morgan("dev"));
 
 //Passport middleware
 app.use(passport.initialize());
