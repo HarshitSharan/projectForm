@@ -31,8 +31,14 @@ const dataManipulator = (questionData, optionData, optionTypeData) => {
     formQuestion.push(dataObj);
   }
 
-  console.log(formQuestion);
+  // console.log(formQuestion);
 };
+
+function clearArray(array) {
+  while (array.length > 1) {
+    array.pop();
+  }
+}
 
 const linkGenerator = async (
   req,
@@ -46,19 +52,14 @@ const linkGenerator = async (
   const linkId = uuidv4().replace(/-/g, "") + expiryDate.toString();
   const adminId = mongoose.Types.ObjectId(req.user._id);
   const formName = name;
-  const link = new Link({
-    adminId,
-    linkId,
-    formName,
-    formQuestion,
-    expiryDate,
-  });
+  const link = new Link();
   link.linkId = linkId;
   link.expiryDate = expiryDate;
   link.adminId = adminId;
   link.formName = formName;
   link.formQuestion = formQuestion;
   const result = await link.save();
+  clearArray(formQuestion);
   return result;
 };
 

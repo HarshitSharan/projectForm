@@ -20,7 +20,7 @@ if (shareLinkBtn) {
         var copyTextarea = document.createElement("textarea");
         copyTextarea.style.position = "fixed";
         copyTextarea.style.opacity = "0";
-        copyTextarea.textContent = `${BASE_URL}` + `public/${res.data}`;
+        copyTextarea.textContent = `${BASE_URL}getLink/public/${res.data}`;
         console.log(res.data);
         document.body.appendChild(copyTextarea);
         copyTextarea.select();

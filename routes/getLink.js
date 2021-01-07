@@ -15,4 +15,14 @@ router.get("/", ensureAuthenticate, async (req, res) => {
   }
 });
 
+router.get("/public/:id", async (req, res) => {
+  const publicFormID = req.params.id;
+  console.log(publicFormID);
+  const data = await Link.findOne({
+    linkId: publicFormID,
+  });
+  res.send(data);
+  // console.log(data);
+});
+
 module.exports = router;
