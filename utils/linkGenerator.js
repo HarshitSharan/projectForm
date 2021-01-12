@@ -10,24 +10,12 @@ const formQuestion = [];
 
 const dataManipulator = (questionData, optionData, optionTypeData) => {
   for (var i = 0; i < questionData.length; i++) {
-    var dataObj = {};
-    key1 = "question";
-    if (!(key1 in dataObj) || key1 in dataObj) {
-      dataObj[key1] = {};
-    }
-    key2 = "option";
-    if (!(key2 in dataObj) || key2 in dataObj) {
-      dataObj[key2] = [];
-    }
-    key3 = "optionType";
-    if (!(key3 in dataObj) || key3 in dataObj) {
-      dataObj[key3] = {};
-    }
-    dataObj[key1] = questionData[i];
-    optionData[i].forEach((option) => {
-      dataObj[key2].push(option);
-    });
-    dataObj[key3] = optionTypeData[i];
+    var dataObj = {
+      question: questionData[i],
+      option: optionData[i],
+      optionType: optionTypeData[i],
+    };
+    // console.log(dataObj);
     formQuestion.push(dataObj);
   }
 
@@ -35,7 +23,7 @@ const dataManipulator = (questionData, optionData, optionTypeData) => {
 };
 
 function clearArray(array) {
-  while (array.length > 1) {
+  while (array.length > 0) {
     array.pop();
   }
 }
