@@ -60,8 +60,10 @@ router.get("/dashboard/addOption", (req, res) => {
 router.get("/dashboard/RemoveQuestion", (req, res) => {
   let temp = req.query.QuestionNumber;
   ques--;
+  console.log(ques,opt,option_type);
   opt.splice(temp, 1);
   option_type.splice(temp, 1);
+  console.log(ques,opt,option_type);  
   res.redirect("/dashboard");
 });
 

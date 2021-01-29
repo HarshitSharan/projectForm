@@ -1,6 +1,9 @@
 const BASE_URL = "http://localhost:5500/";
 const labels = document.querySelectorAll(".form-control label");
 
+$(".dashboard-container form .dropdown-menu a").click(function () {
+  $("#selected").text($(this).text());
+});
 labels.forEach((label) => {
   label.innerHTML = label.innerText
     .split("")
@@ -10,7 +13,17 @@ labels.forEach((label) => {
     )
     .join("");
 });
-
+var observe;
+if (window.attachEvent) {
+    observe = function (element, event, handler) {
+        element.attachEvent('on'+event, handler);
+    };
+}
+else {
+    observe = function (element, event, handler) {
+        element.addEventListener(event, handler, false);
+    };
+}
 const shareLinkBtn = document.getElementById("share-link");
 if (shareLinkBtn) {
   shareLinkBtn.addEventListener("click", () => {
@@ -35,13 +48,11 @@ if (shareLinkBtn) {
 }
 
 function typeChange(qno, fl) {
-  localStorage.setItem("yha", "aaya" + fl);
   if (fl == 0) {
     if (localStorage.getItem("qT" + qno) != null) {
       localStorage.removeItem("qT" + qno);
     }
   } else {
-    localStorage.setItem("yha aaya", "yay");
     let temp = localStorage.getItem("q" + qno);
     let obj = JSON.parse(temp);
     obj.ono = 1;
@@ -91,11 +102,14 @@ function removeOpt(qno, ono) {
 function removeQues(qno) {
   let quest = parseInt(localStorage.getItem("quest"));
   save();
+  qno=parseInt(qno);
   localStorage.setItem("scroll", window.scrollY);
   for (let i = qno + 1; i < quest; i++) {
     let k = i - 1;
+    localStorage.setItem("kya aaya",i)
     let temp = localStorage.getItem("q" + i);
     localStorage.setItem("q" + k, temp);
+
     if (localStorage.getItem("qT" + qno) != null) {
       localStorage.setItem("qT" + k, "Text Area");
       localStorage.removeItem("qT" + i);
@@ -106,7 +120,7 @@ function removeQues(qno) {
     localStorage.removeItem("q" + quest);
     localStorage.setItem("quest", quest);
     localStorage.removeItem("qT" + quest);
-  }
+  } 
 }
 function addQues() {
   save();
@@ -142,5 +156,10 @@ for (let i = 0; i < q; i++) {
     document.getElementsByName("ques" + i + "opt" + j)[0].value = obj.option[j];
   }
 }
-
+$('.form-control').on('input', function () {
+  this.style.height = 'auto';
+  
+  this.style.height = 
+      (this.scrollHeight) + 'px';
+});
 //document.getElementById('option_type').addEventListener('change', typeChange);

@@ -1,5 +1,5 @@
 <div class="header">
-    <div class="no-touch">
+    <div class="no-touch"> 
         <div id="welcome">
             <div>
                 <img src="/images/icons8-google-forms-sm.svg" alt="">
@@ -15,17 +15,26 @@
         <h1 class="mt-4">
             Questions
         </h1>
-
         <form action="dashboard/StoreQuestion" method="POST">
           <% for(var i=1;i<=question;i++){ %>
+
             <div class="box" id="Q<%=i-1%>" >
-              <h3>(<%=i%>) </h3>
-              <input type="text" oninput="save()" value="" name="ques<%= i-1 %>" placeholder="Type your question">
-              <div class="optionsType">
-                <a href="dashboard/changeOpt?QuestionNumber=<%=i-1%>&type=c" onclick="typeChange(`<%=i-1%>`,0)">Check Box</a><br>
-                <a href="dashboard/ChangeOpt?QuestionNumber=<%=i-1%>&type=sa" onclick="typeChange(`<%=i-1%>`,1)">Short Answer</a><br>
-                <a href="dashboard/ChangeOpt?QuestionNumber=<%=i-1%>&type=r" onclick="typeChange(`<%=i-1%>`),0">Multiple Choice</a><br>
-              </div>  
+              <div class="line">
+              <div id="QuestionNumber"><h3><%=i%> </h3></div>
+              <div class="input-group">
+                <textarea  placeholder="Question"class="form-control" oninput="save()" value=""  name="ques<%= i-1 %>"></textarea>
+              </div>
+              <!-- <input type="text" oninput="save()" value="" name="ques<%= i-1 %>" placeholder="Type your question"> -->
+              <div class="dropdown">
+                <a aria-expanded="false" aria-haspopup="true" role="button" data-toggle="dropdown" class="dropdown-toggle" href="#">
+                  <span id="selected">Choose option</span><span class="caret"></span></a>
+                  <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                    <li><a class="dropdown-item" href="dashboard/changeOpt?QuestionNumber=<%=i-1%>&type=c" onclick="typeChange(<%=i-1%>,0)">Check Box</a></li>
+                    <li><a class="dropdown-item" href="dashboard/ChangeOpt?QuestionNumber=<%=i-1%>&type=sa" onclick="typeChange(<%=i-1%>,1)">Short Answer</a></li>
+                    <li><a class="dropdown-item" href="dashboard/ChangeOpt?QuestionNumber=<%=i-1%>&type=r" onclick="typeChange(<%=i-1%>),0">Multiple Choice</a></li>
+                  </ul>
+                </div>
+              </div>
               <div class="Option"> 
                 <% for(var j=0;j<option[i-1];j++){ %>
                   <% if(option_type[i-1]=='text'){ %>
@@ -37,9 +46,15 @@
               </div>
       
               <!--  -->
-                <a href="dashboard/addoption?QuestionNumber=<%= i-1 %>" onclick="addOpt(`<%=i-1%>`,`<%=j%>`)" >Add Option</a><br>
-                <a href="dashboard/RemoveOption?QuestionNumber=<%= i-1%>" onclick="removeOpt(`<%=i-1%>`,`<%=j%>`)" >Remove Option</a><br>
-              <a href='dashboard/RemoveQuestion?QuestionNumber=<%= i-1%>' onclick="removeQues(`<%=i-1%>`)" >Remove Question</a>
+              <a href="dashboard/addoption?QuestionNumber=<%= i-1 %>" onclick="addOpt(`<%=i-1%>`,`<%=j%>`)" ><button id="share-link"> 
+                <i class="fa fa-plus-circle fa-2x " aria-hidden="true" ></i>
+            </button>Add Option</a><br>
+              <a href="dashboard/RemoveOption?QuestionNumber=<%= i-1%>" onclick="removeOpt(`<%=i-1%>`,`<%=j%>`)" ><button id="share-link"> 
+                <i class="fa fa-trash-alt fa-2x" aria-hidden="true" ></i>
+                  </button>Remove Option</a><br>
+            <a href='dashboard/RemoveQuestion?QuestionNumber=<%= i-1%>' onclick="removeQues(`<%=i-1%>`)" ><button id="share-link"> 
+              <i class="fa fa-trash-alt fa-2x" aria-hidden="true" ></i>
+          </button>Remove Question</a>
               <!--  -->
             </div>
           <% } %>
